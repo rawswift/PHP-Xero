@@ -127,12 +127,24 @@ class Xero {
 							$wv = rawurlencode($wv[0]) . "%22{$wv[1]}%22" ;
 						}
 					} else {
+						// encode value
+						// e.g.
+						// $result = $xero->Invoices(false, false, array("Contact.Name" => "Moe & Curly & Larry") );
+						$wv = rawurlencode($wv);
+
 						$wv = "%3d%3d%22$wv%22";
 					}
 					$temp_where .= "%26%26$wf$wv";
 				}
 				$where = strip_tags(substr($temp_where, 6));
 			} else {
+				// prevent doubly encode, for hand-crafted "where" filters
+				// e.g.
+				// $result = $xero->Invoices(false, false, "Contact.Name%3d%3d%22Basket%20Case%22%20AND%20Type%3d%3d%22ACCREC%22%20AND%20Status%3d%3d%22AUTHORISED%22" );
+				// $result = $xero->Invoices(false, false, rawurlencode('Contact.Name=="Basket Case" AND Type=="ACCREC" AND Status=="AUTHORISED"') );
+				$where = rawurldecode($where); // decode
+				$where = rawurlencode($where); // encode again
+
 				$where = strip_tags(strval($where));
 			}
 			$order = ( count($arguments) > 3 ) ? strip_tags(strval($arguments[3])) : false;
