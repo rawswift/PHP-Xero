@@ -54,11 +54,25 @@ Basically instantiate the Xero class with your credentials and desired output fo
 Retrieving a result set from Xero involves identifying the endpoint you want to access, and optionally, setting some parameters to further filter the result set.
 There are 5 possible parameters:
 
-1. Record filter: The first parameter could be a boolean "false" or a unique resource identifier: document ID or unique number eg: $xero->Invoices('INV-2011', false, false, false, false);
-2. Modified since: second parameter could be a date/time filter to only return data modified since a certain date/time eg: $xero->Invoices(false, "2012-05-11T00:00:00");
-3. Custom filters: an array of filters, with array keys being filter fields (left of operand), and array values being the right of operand values.  The array value can be a string or an array(operand, value), or a boolean eg: $xero->Invoices(false, false, $filterArray);
-4. Order by: set the ordering of the result set eg: $xero->Invoices('', '', '', 'Date', '');
-5. Accept type: this only needs to be set if you want to retrieve a PDF version of a document, eg: $xero->Invoices($invoice_id, '', '', '', 'pdf');
+1. Record filter: The first parameter could be a boolean "false" or a unique resource identifier: document ID or unique number eg:
+
+        $xero->Invoices('INV-2011', false, false, false, false);
+
+2. Modified since: second parameter could be a date/time filter to only return data modified since a certain date/time eg:
+
+        $xero->Invoices(false, "2012-05-11T00:00:00");
+
+3. Custom filters: an array of filters, with array keys being filter fields (left of operand), and array values being the right of operand values.  The array value can be a string or an array(operand, value), or a boolean eg:
+
+        $xero->Invoices(false, false, $filterArray);
+
+4. Order by: set the ordering of the result set eg:
+
+        $xero->Invoices('', '', '', 'Date', '');
+
+5. Accept type: this only needs to be set if you want to retrieve a PDF version of a document, eg:
+
+        $xero->Invoices($invoice_id, '', '', '', 'pdf');
 		
 Further details on filtering GET requests here: http://blog.xero.com/developer/api-overview/http-get/
 
